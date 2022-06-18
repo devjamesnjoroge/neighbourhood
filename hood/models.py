@@ -10,6 +10,9 @@ class Admin(models.Model):
     confirm_password = models.CharField(max_length=100, default=password)
     phone = models.CharField(max_length=100)
 
+    def save_admin(self):
+        self.save()
+
     def __repr__(self):
         return self.username
     
