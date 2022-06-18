@@ -41,3 +41,20 @@ class Neighbourhood(models.Model):
 
     def __str__(self):
         return self.name
+
+class User(models.Model):
+    name = models.CharField(max_length=50)
+    email = models.EmailField(max_length=100)
+    password = models.CharField(max_length=100)
+    confirm_password = models.CharField(max_length=100, default=password)
+    phone = models.CharField(max_length=100)
+    neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
+
+    def save_user(self):
+        self.save()
+
+    def delete_user(self):
+        self.delete()
+
+    def __str__(self):
+        return self.name
