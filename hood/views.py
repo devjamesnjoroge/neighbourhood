@@ -40,7 +40,10 @@ def create_hood(request):
         form = NeighbourhoodForm(request.POST, request.FILES)
         if form.is_valid():
             hood = form.save(commit=False)
-            admin = Admin.objects.create(user=request.user)
+            if Admin.objects.filter(user=request.user).exists():
+                admin = Admin.objects.get(user=request.user)
+            else:
+                admin = Admin.objects.create(user=request.user)
             hood.admin = admin
             hood.save()
             return redirect('/')

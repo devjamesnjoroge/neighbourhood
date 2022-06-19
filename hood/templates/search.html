@@ -39,12 +39,14 @@
             <div class="row">
        {% if all is True %} 
        {% for hood in hoods %}
-       <div class="col-md-4">
+       <div class="col-md-6 col-lg-4">
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">{{ hood.name }}</h5>
-                <img src="{{hood.hood_image.url}}" alt="img">
-                <p class="card-text mt-3">Admin: <span class="text-dark">{{ hood.admin.user.username }}</span></p>
+                <div class="hood-image" style="background-image: url('{{hood.hood_image.url}}');">
+
+                </div>
+                <p class="card-text mt-3">Admin: <span class="text-warning">{{ hood.admin.user.username }}</span></p>
                 <a href="" class="btn btn-warning">View</a>
             </div>
         </div>
