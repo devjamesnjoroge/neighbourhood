@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+:root{
+    --breakpoint-xs:0;
+    --breakpoint-sm:576px;
+    --breakpoint-md:768px;
+    --breakpoint-lg:992px;
+    --breakpoint-xl:1200px;
+}
+
+body{
+    background-color: #0A373E;
+}
+
+.card{
+    background-color: #0A373E;
+    color: white;
+}
+
+.hood-image{
+    height: 35vh;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+}

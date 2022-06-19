@@ -29,8 +29,9 @@ class Neighbourhood(models.Model):
     def delete_neighbourhood(self):
         self.delete()
     
-    def find_neighbourhood(self):
-        return Neighbourhood.objects.filter(id=self.id)
+    @classmethod
+    def find_neighbourhood(self, id):
+        return Neighbourhood.objects.get(id=id)
 
     def update_neighbourhood(self):
         self.save()

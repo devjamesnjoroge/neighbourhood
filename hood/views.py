@@ -51,3 +51,7 @@ def create_hood(request):
     else:
         form = NeighbourhoodForm()
     return render(request, 'create_hood.html', {'form': form})
+
+def hood_profile(request, hood_id):
+    hood = Neighbourhood.find_neighbourhood(hood_id)
+    return render(request, 'hood_profile.html', {'hood': hood})

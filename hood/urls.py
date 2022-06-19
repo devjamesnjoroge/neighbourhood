@@ -10,4 +10,5 @@ urlpatterns = [
     path('auth/logout/', auth_views.LogoutView.as_view(template_name='authentication/logout.html'), name='logout'),
     path('neighbourhoods/', views.search_hood, name='neighbourhoods'),
     path('neighbourhoods/create/', views.create_hood, name='create_hood'),
+    path('neighbourhoods/<int:hood_id>/', views.hood_profile, name='hood_profile'),
 ]
