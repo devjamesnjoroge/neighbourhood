@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Admin(models.Model):
-    username = models.CharField(max_length=50, default='')
+    username = models.CharField(max_length=50, default='', unique=True)
     email = models.EmailField(max_length=100, default='')
     password = models.CharField(max_length=100, default='')
     confirm_password = models.CharField(max_length=100, default=password)
@@ -19,7 +19,7 @@ class Admin(models.Model):
 
 class Neighbourhood(models.Model):
     name = models.CharField(max_length=50)
-    location = models.CharField(max_length=50)
+    location = models.CharField(max_length=50, unique=True)
     occupants = models.IntegerField()
     admin = models.ForeignKey(Admin, on_delete=models.CASCADE)
 
@@ -48,10 +48,10 @@ class Neighbourhood(models.Model):
 
 class User(models.Model):
     name = models.CharField(max_length=50)
-    email = models.EmailField(max_length=100)
+    email = models.EmailField(max_length=100, unique=True)
     password = models.CharField(max_length=100)
     confirm_password = models.CharField(max_length=100, default=password)
-    neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE, default='')
+    neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE, default='', null=True, blank=True)
 
     def save_user(self):
         self.save()
