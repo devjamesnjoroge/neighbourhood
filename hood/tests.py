@@ -38,3 +38,7 @@ class NeighbourhoodTest(TestCase):
     def test_update_neighbourhood(self):
         self.neighbourhood.update_neighbourhood()
         self.assertTrue(isinstance(self.neighbourhood, Neighbourhood))
+
+    def test_search_neighbourhood(self):
+        self.neighbourhood.search_neighbourhood()
+        self.assertTrue(isinstance(self.neighbourhood, Neighbourhood))

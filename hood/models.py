@@ -38,6 +38,9 @@ class Neighbourhood(models.Model):
     def update_occupants(self):
         self.save()
 
+    def search_neighbourhood(self):
+        return Neighbourhood.objects.filter(name__icontains=self.name)
+
 
     def __str__(self):
         return self.name
@@ -57,3 +60,28 @@ class User(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Business(models.Model):
+        business_name = models.CharField(max_length=50)
+        business_email = models.EmailField(max_length=100)
+        user = models.ForeignKey(User, on_delete=models.CASCADE)
+        neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
+
+        def save_business(self):
+            self.save()
+
+        def delete_business(self):
+            self.delete()
+
+        def find_business(self):
+            return Business.objects.filter(id=self.id)
+
+        def update_business(self):
+            self.save()
+
+        def search_business(self):
+            return Business.objects.filter(business_name__icontains=self.business_name)
+
+        def __str__(self):
+            return self.business_name
