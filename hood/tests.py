@@ -39,9 +39,9 @@ class NeighbourhoodTest(TestCase):
         self.neighbourhood.update_neighbourhood()
         self.assertTrue(isinstance(self.neighbourhood, Neighbourhood))
 
-    def test_search_neighbourhood(self):
-        self.neighbourhood.search_neighbourhood()
-        self.assertTrue(isinstance(self.neighbourhood, Neighbourhood))
+    def test_search_neighbourhood(self, hood_name = 'test'):
+        search_results = self.neighbourhood.search_neighbourhood(hood_name)
+        self.assertTrue(len(search_results)>0)
 
 class BusinessTest(TestCase):
     def setUp(self):
@@ -69,6 +69,6 @@ class BusinessTest(TestCase):
         self.business.update_business()
         self.assertTrue(isinstance(self.business, Business))
 
-    def test_search_business(self):
-        self.business.search_business()
-        self.assertTrue(isinstance(self.business, Business))
+    def test_search_business(self, search_term = 'test'):
+        search_results = self.business.search_business(search_term)
+        self.assertTrue(len(search_results)>0)

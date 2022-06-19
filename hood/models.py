@@ -38,8 +38,9 @@ class Neighbourhood(models.Model):
     def update_occupants(self):
         self.save()
 
-    def search_neighbourhood(self):
-        return Neighbourhood.objects.filter(name__icontains=self.name)
+    @classmethod
+    def search_neighbourhood(self, hood_name):
+        return Neighbourhood.objects.filter(name__icontains=hood_name)
 
 
     def __str__(self):
@@ -80,8 +81,9 @@ class Business(models.Model):
         def update_business(self):
             self.save()
 
-        def search_business(self):
-            return Business.objects.filter(business_name__icontains=self.business_name)
+        @classmethod
+        def search_business(self, search_term):
+            return Business.objects.filter(business_name__icontains=search_term)
 
         def __str__(self):
             return self.business_name
