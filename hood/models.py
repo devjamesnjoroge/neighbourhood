@@ -4,17 +4,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Admin(models.Model):
-    username = models.CharField(max_length=100)
-    email = models.EmailField(max_length=100)
-    password = models.CharField(max_length=100)
-    confirm_password = models.CharField(max_length=100, default=password)
-    phone = models.CharField(max_length=100)
-
-    def save_admin(self):
-        self.save()
-
-    def __repr__(self):
-        return self.username
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     
 
 class Neighbourhood(models.Model):
@@ -47,7 +37,6 @@ class User(models.Model):
     email = models.EmailField(max_length=100)
     password = models.CharField(max_length=100)
     confirm_password = models.CharField(max_length=100, default=password)
-    phone = models.CharField(max_length=100)
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
 
     def save_user(self):
