@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from .forms import UserForm
+from django.contrib.auth.models import User as auth_User
 
 # Create your views here.
 
@@ -8,10 +8,10 @@ def index(request):
 
 def register(request):
     if request.method == 'POST':
-        form = UserForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/')
-    else:
-        form = UserForm()
-    return render(request, 'register.html')
+        username = request.POST['username']
+        password = request.POST['password']
+        email = request.POST['email']
+        user = auth_User.objects.create_user(username, email, password)
+        user.save()
+        return redirect('/')
+    return render(request, 'authentication/register.html')

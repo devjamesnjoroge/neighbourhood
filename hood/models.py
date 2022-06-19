@@ -1,13 +1,11 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User as auth_User
 
 # Create your models here.
 
+
 class Admin(models.Model):
-    username = models.CharField(max_length=50, default='', unique=True)
-    email = models.EmailField(max_length=100, default='', unique=True)
-    password = models.CharField(max_length=100, default='')
-    confirm_password = models.CharField(max_length=100, default=password)
+    user = models.OneToOneField(auth_User, on_delete=models.CASCADE, default=None)
 
     def save_admin(self):
         self.save()
@@ -47,10 +45,7 @@ class Neighbourhood(models.Model):
         return self.name
 
 class User(models.Model):
-    name = models.CharField(max_length=50)
-    email = models.EmailField(max_length=100, unique=True)
-    password = models.CharField(max_length=100)
-    confirm_password = models.CharField(max_length=100, default=password)
+    user = models.OneToOneField(auth_User, on_delete=models.CASCADE, default=None)
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE, default='', null=True, blank=True)
 
     def save_user(self):
