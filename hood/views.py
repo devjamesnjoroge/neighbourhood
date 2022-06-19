@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.models import User as auth_User
 from .models import *
 from .forms import *
+from django.http import HttpResponseRedirect
 
 # Create your views here.
 
@@ -15,6 +16,8 @@ def register(request):
         email = request.POST['email']
         user = auth_User.objects.create_user(username, email, password)
         user.save()
+        hood_user = User.objects.create(user=user)
+        hood_user.save()
         return redirect('/')
     return render(request, 'authentication/register.html')
 
@@ -54,4 +57,20 @@ def create_hood(request):
 
 def hood_profile(request, hood_id):
     hood = Neighbourhood.find_neighbourhood(hood_id)
-    return render(request, 'hood_profile.html', {'hood': hood})
+    if User.objects.filter( user=request.user, neighbourhood=hood).exists():
+        status = 'Member'
+    else:
+        status = 'Not Member'
+    return render(request, 'hood_profile.html', {'hood': hood, 'status': status})
+
+def join_hood(request, hood_id):
+    hood = Neighbourhood.find_neighbourhood(hood_id)
+    if User.objects.filter( user=request.user, neighbourhood=hood).exists():
+        member = True
+
+    else:
+        hood = Neighbourhood.find_neighbourhood(hood_id)
+        user = User.objects.get(user=request.user)
+        user.neighbourhood = hood
+        user.save()
+        return HttpResponseRedirect(request.path_info)

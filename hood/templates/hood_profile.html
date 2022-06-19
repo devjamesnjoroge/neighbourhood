@@ -42,7 +42,11 @@
             <div class="col-lg-5 offset-lg-1 text-white d-flex flex-column justify-content-center">
                 <h4> Occupants population: {{hood.occupants}}</h4>
                 <h5 class="mt-3">Active members: 7</h5>
-                <a href="" class="btn btn-warning mt-5">Join this hood</a>
+               {% if status == 'Member' %}
+               <a href="/neighbourhoods/{{hood.id}}/join/" class="btn btn-warning mt-5">Leave this hood</a>
+               {% else %}
+               <a href="/neighbourhoods/{{hood.id}}/join/" class="btn btn-warning mt-5">Join this hood</a>
+                {% endif %}
             </div>
         </div>
     </div>
