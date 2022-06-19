@@ -13,7 +13,7 @@ class Admin(models.Model):
 
 
     def __str__(self):
-        return self.username
+        return self.user.username
     
 
 class Neighbourhood(models.Model):
@@ -56,6 +56,9 @@ class User(models.Model):
 
     def delete_user(self):
         self.delete()
+
+    def delete_neighbourhood(self):
+        self.neighbourhood.delete()
 
     def __str__(self):
         return self.user.username

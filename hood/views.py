@@ -3,6 +3,7 @@ from django.contrib.auth.models import User as auth_User
 from .models import *
 from .forms import *
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -18,10 +19,11 @@ def register(request):
         user.save()
         hood_user = User.objects.create(user=user)
         hood_user.save()
-        return redirect('/')
+        return redirect('/auth/login/')
     return render(request, 'authentication/register.html')
 
 
+@login_required(login_url='/auth/login/')
 def search_hood(request):
     if request.method == 'POST':
         hood_name = request.POST['hood_name']
@@ -38,6 +40,7 @@ def search_hood(request):
       
     return render(request, 'search.html', {'hoods': hoods, 'all': all})
 
+@login_required(login_url='/auth/login/')
 def create_hood(request):
     if request.method == 'POST':
         form = NeighbourhoodForm(request.POST, request.FILES)
@@ -55,6 +58,7 @@ def create_hood(request):
         form = NeighbourhoodForm()
     return render(request, 'create_hood.html', {'form': form})
 
+@login_required(login_url='/auth/login/')
 def hood_profile(request, hood_id):
     hood = Neighbourhood.find_neighbourhood(hood_id)
     if User.objects.filter( user=request.user, neighbourhood=hood).exists():
@@ -63,14 +67,11 @@ def hood_profile(request, hood_id):
         status = 'Not Member'
     return render(request, 'hood_profile.html', {'hood': hood, 'status': status})
 
+@login_required(login_url='/auth/login/')
 def join_hood(request, hood_id):
+   
     hood = Neighbourhood.find_neighbourhood(hood_id)
-    if User.objects.filter( user=request.user, neighbourhood=hood).exists():
-        member = True
-
-    else:
-        hood = Neighbourhood.find_neighbourhood(hood_id)
-        user = User.objects.get(user=request.user)
-        user.neighbourhood = hood
-        user.save()
-        return HttpResponseRedirect(request.path_info)
+    user = User.objects.get(user=request.user)
+    user.neighbourhood = hood
+    user.save()
+    return redirect('/neighbourhoods/')
