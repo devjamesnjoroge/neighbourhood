@@ -1,6 +1,7 @@
+from email.policy import default
 from django.db import models
 from django.contrib.auth.models import User as auth_User
-
+from cloudinary.models import CloudinaryField
 # Create your models here.
 
 
@@ -19,6 +20,7 @@ class Neighbourhood(models.Model):
     name = models.CharField(max_length=50)
     location = models.CharField(max_length=50, unique=True)
     occupants = models.IntegerField()
+    hood_image = CloudinaryField('image', default='')
     admin = models.ForeignKey(Admin, on_delete=models.CASCADE)
 
     def save_neighbourhood(self):

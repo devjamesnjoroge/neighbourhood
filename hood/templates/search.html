@@ -16,21 +16,43 @@
     {% endblock %}
 </head>
 <body>
-
+    <nav>
+        <div class="container mt-3 mb-3">
+        <a class="btn text-warning btn-transparent" href="/neighbourhoods/create/">Add your neighbourhood</a>
+        </div>
+    </nav>
+<hr>
     <div class="container-fluid">
-
-        <h1>ALL RESULTS</h1>
-
-        <div class="container">
+ 
+      {% if results == True %}
+      <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h4>The Kirigiti Hood</h4>
+                <img src="{% static 'assets/k1.jpeg' %}" alt="banner">
+            </div>
+    
+         </div>
+       </div>
+       {% endif %}
+       <div class="container">
             <div class="row">
-
-                <div class="col-lg-6">
-                    <h4>The Kirigiti Hood</h4>
-                    <img src="" alt="banner">
-                </div>
-        
+       {% if all is True %} 
+       {% for hood in hoods %}
+       <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ hood.name }}</h5>
+                <img src="{{hood.hood_image.url}}" alt="img">
+                <p class="card-text mt-3">Admin: <span class="text-dark">{{ hood.admin.user.username }}</span></p>
+                <a href="" class="btn btn-warning">View</a>
             </div>
         </div>
+       </div>
+       {% endfor %}
+       {% endif %}
+        </div>
+    </div>
     </div>
     
 </body>

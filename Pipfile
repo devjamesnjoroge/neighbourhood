@@ -9,6 +9,7 @@ python-decouple = "*"
 psycopg2 = "*"
 bootstrap4 = "*"
 django-bootstrap4 = "*"
+cloudinary = "*"
 
 [dev-packages]
 
