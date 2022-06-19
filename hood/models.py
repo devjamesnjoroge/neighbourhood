@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class Admin(models.Model):
     username = models.CharField(max_length=50, default='', unique=True)
-    email = models.EmailField(max_length=100, default='')
+    email = models.EmailField(max_length=100, default='', unique=True)
     password = models.CharField(max_length=100, default='')
     confirm_password = models.CharField(max_length=100, default=password)
 
