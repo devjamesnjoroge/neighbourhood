@@ -6,7 +6,7 @@ from .models import *
 
 class AdminTest(TestCase):
     def setUp(self):
-        self.admin = Admin.objects.create(username='testuser', email = 'test@gmail.com', password='12345', confirm_password='12345', phone='0712345678')
+        self.admin = Admin.objects.create(username='testuser', email = 'test@gmail.com', password='12345', confirm_password='12345')
 
     def test_instance(self):
         self.assertTrue(isinstance(self.admin, Admin))
@@ -17,7 +17,7 @@ class AdminTest(TestCase):
 
 class NeighbourhoodTest(TestCase):
     def setUp(self):
-        self.admin = Admin.objects.create(username='testuser', email = 'test@gmail.com', password='12345', confirm_password='12345', phone='0712345678')
+        self.admin = Admin.objects.create(username='testuser', email = 'test@gmail.com', password='12345', confirm_password='12345')
         self.neighbourhood = Neighbourhood.objects.create(name='test', location='test', occupants=0, admin=self.admin)
 
     def test_instance(self):
