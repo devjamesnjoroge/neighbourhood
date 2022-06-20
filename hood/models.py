@@ -48,7 +48,7 @@ class Neighbourhood(models.Model):
 
 class User(models.Model):
     user = models.OneToOneField(auth_User, on_delete=models.CASCADE, default=None)
-    neighbourhood = models.OneToOneField(Neighbourhood, on_delete=models.CASCADE, default='', null=True, blank=True)
+    neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE, default='', null=True, blank=True)
 
     def save_user(self):
         self.save()
