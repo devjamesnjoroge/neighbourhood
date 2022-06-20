@@ -76,8 +76,8 @@ class Business(models.Model):
         def delete_business(self):
             self.delete()
 
-        def find_business(self):
-            return Business.objects.filter(id=self.id)
+        def find_business(id):
+            return Business.objects.filter(id=id)
 
         def update_business(self):
             self.save()

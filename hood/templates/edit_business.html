@@ -1,0 +1,36 @@
+{% load static %}
+{% load bootstrap4 %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOOD CHRONICLES</title>
+    {% block styles %}
+    {% bootstrap_css %}
+
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+
+    {% endblock %}
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-lg-4 offset-md-3 offset-lg-4 mt-5 pt-5">
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    <input class="btn btn-warning" type="submit" value="Update Neighbourhood">
+                    {% if error %}
+                    <div class="alert alert-danger">
+                        {{ error }}
+                    </div>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

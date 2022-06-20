@@ -71,8 +71,8 @@
                         <img class="img-responsive img-fluid" src="{{business.business_snap_pic.url}}" alt="">
                         <h5 class="card-title">{{ business.business_name }}</h5>
                         <p class="card-text">{{ business.business_email }}</p>
-                        <!-- <a href="/neighbourhoods/business/{{ business.id }}/update/" class="btn btn-warning">Update</a>
-                        <a href="/neighbourhoods/business/{{ business.id }}/delete/" class="btn btn-warning">Delete</a> -->
+                        <a href="/neighbourhoods/{{hood.id}}/business/{{ business.id }}/update/" class="btn btn-warning">Update</a>
+                        <a href="/neighbourhoods/{{hood.id}}/business/{{business.id}}/delete/" class="btn btn-warning">Delete</a>
                     </div>
                 </div>
             </div>

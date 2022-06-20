@@ -73,8 +73,11 @@ def join_hood(request, hood_id):
    
     hood = Neighbourhood.find_neighbourhood(hood_id)
     user = User.objects.get(user=request.user)
-    user.neighbourhood = hood
-    user.save()
+    if user.neighbourhood is not None:
+        return render(request, 'error/already_member.html')
+    else:
+        user.neighbourhood = hood
+        user.save()
     return redirect('/neighbourhoods/' + str(hood_id))
 
 @login_required(login_url='/auth/login/')
@@ -108,3 +111,29 @@ def create_business(request, hood_id):
         form = BusinessForm()
         error = False
     return render(request, 'create_business.html', {'form': form, 'error': error})
+
+@login_required(login_url='/auth/login/')
+def delete_business(request, hood_id, business_id):
+    business = Business.objects.get(id=business_id)
+    user = User.objects.get(user=request.user)
+    if business.user == user:
+        business.delete()
+        return redirect('/neighbourhoods/' + str(hood_id))
+    else:
+        return render(request, 'error/403.html')
+
+@login_required(login_url='/auth/login/')
+def edit_business(request, hood_id, business_id):
+    business = Business.objects.get(id=business_id)
+    user = User.objects.get(user=request.user)
+    if business.user == user:
+        if request.method == 'POST':
+            form = BusinessForm(request.POST, request.FILES, instance=business)
+            if form.is_valid():
+                form.save()
+                return redirect('/neighbourhoods/' + str(hood_id))
+        else:
+            form = BusinessForm(instance=business)
+        return render(request, 'edit_business.html', {'form': form})
+    else:
+        return render(request, 'error/403.html')
