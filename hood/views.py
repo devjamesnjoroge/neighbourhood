@@ -75,3 +75,11 @@ def join_hood(request, hood_id):
     user.neighbourhood = hood
     user.save()
     return redirect('/neighbourhoods/')
+
+@login_required(login_url='/auth/login/')
+def leave_hood(request, hood_id):
+    hood = Neighbourhood.find_neighbourhood(hood_id)
+    user = User.objects.get(user=request.user)
+    user.neighbourhood = None
+    user.save()
+    return redirect('/neighbourhoods/')
