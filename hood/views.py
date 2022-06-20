@@ -61,12 +61,14 @@ def create_hood(request):
 @login_required(login_url='/auth/login/')
 def hood_profile(request, hood_id):
     hood = Neighbourhood.find_neighbourhood(hood_id)
+    users = User.objects.filter(neighbourhood=hood)
+    users_count = len(users)
     if User.objects.filter( user=request.user, neighbourhood=hood).exists():
         status = 'Member'
     else:
         status = 'Not Member'
     businesses = Business.objects.filter(neighbourhood=hood)
-    return render(request, 'hood_profile.html', {'hood': hood, 'status': status, 'businesses': businesses})
+    return render(request, 'hood_profile.html', {'hood': hood, 'status': status, 'businesses': businesses, 'users': users, 'users_count': users_count})
 
 @login_required(login_url='/auth/login/')
 def join_hood(request, hood_id):

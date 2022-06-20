@@ -46,6 +46,11 @@ nav p span{
     color: gold;
 }
 
+.link{
+    text-decoration: none;
+    color: white;
+}
+
 .search{
     margin-top: 10vh;
     display: flex;
