@@ -29,10 +29,10 @@ def search_hood(request):
         hood_name = request.POST['hood_name']
         all = False
         hoods = Neighbourhood.objects.filter(name__icontains=hood_name)
+        results = len(hoods)
         if len(hoods) == 0:
-            hood = 'No results found'
-            results = False
-        return render(request, 'search.html', {'hood': hood})
+            hoods = None
+        return render(request, 'search.html', {'hoods': hoods, 'all': all, 'results': results})
 
     else:
         all = True
