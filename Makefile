@@ -12,3 +12,6 @@ test:
 		python manage.py test
 admin:
 		python manage.py createsuperuser
+		
+heroku-migrate:
+		heroku run python manage.py migrate
