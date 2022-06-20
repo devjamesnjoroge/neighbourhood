@@ -1,12 +1,13 @@
 from django.test import TestCase
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User as auth_User
 from .models import *
 
 # Create your tests here.
 
 class AdminTest(TestCase):
     def setUp(self):
-        self.admin = Admin.objects.create(username='testuser', email = 'test@gmail.com', password='12345', confirm_password='12345')
+        self.user = auth_User.objects.create(username='test', password='test', email='testuser@gmail.com')
+        self.admin = Admin.objects.create(user=self.user)
 
     def test_instance(self):
         self.assertTrue(isinstance(self.admin, Admin))
@@ -17,7 +18,8 @@ class AdminTest(TestCase):
 
 class NeighbourhoodTest(TestCase):
     def setUp(self):
-        self.admin = Admin.objects.create(username='testuser', email = 'test@gmail.com', password='12345', confirm_password='12345')
+        self.user = auth_User.objects.create(username='test', password='test', email='testuser@gmail.com')
+        self.admin = Admin.objects.create(user=self.user)
         self.neighbourhood = Neighbourhood.objects.create(name='test', location='test', occupants=0, admin=self.admin)
 
     def test_instance(self):
@@ -45,9 +47,10 @@ class NeighbourhoodTest(TestCase):
 
 class BusinessTest(TestCase):
     def setUp(self):
-        self.admin = Admin.objects.create(username='testuser', email = 'test@gmail.com', password='12345', confirm_password='12345')
+        self.user = auth_User.objects.create(username='test', password='test', email='testuser@gmail.com')
+        self.admin = Admin.objects.create(user=self.user)
         self.neighbourhood = Neighbourhood.objects.create(name='test', location='test', occupants=0, admin=self.admin)
-        self.user = User.objects.create(name='test', email = 'test@gmail.com', password='12345', neighbourhood=self.neighbourhood)
+        self.user = User.objects.create(user=self.user, neighbourhood=self.neighbourhood)
         self.business = Business.objects.create(business_name='test', business_email = 'business@gmail.com', user = self.user, neighbourhood=self.neighbourhood)
 
     def test_instance(self):
