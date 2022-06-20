@@ -65,7 +65,8 @@ def hood_profile(request, hood_id):
         status = 'Member'
     else:
         status = 'Not Member'
-    return render(request, 'hood_profile.html', {'hood': hood, 'status': status})
+    businesses = Business.objects.filter(neighbourhood=hood)
+    return render(request, 'hood_profile.html', {'hood': hood, 'status': status, 'businesses': businesses})
 
 @login_required(login_url='/auth/login/')
 def join_hood(request, hood_id):
