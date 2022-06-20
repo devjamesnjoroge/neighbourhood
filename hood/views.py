@@ -86,8 +86,15 @@ def leave_hood(request, hood_id):
     return redirect('/neighbourhoods/' + str(hood_id))
 
 @login_required(login_url='/auth/login/')
-def create_business(request):
+def create_business(request, hood_id):
+    hood = Neighbourhood.find_neighbourhood(hood_id)
+    user = User.objects.get(user=request.user)
+
     if request.method == 'POST':
+        if user.neighbourhood != hood:
+            return render(request, 'error/403.html')
+        else:
+            error = False
         form = BusinessForm(request.POST, request.FILES)
         if form.is_valid():
             business = form.save(commit=False)
@@ -99,4 +106,5 @@ def create_business(request):
             return redirect('/neighbourhoods/')
     else:
         form = BusinessForm()
-    return render(request, 'create_business.html', {'form': form})
+        error = False
+    return render(request, 'create_business.html', {'form': form, 'error': error})

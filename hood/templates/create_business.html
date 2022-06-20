@@ -23,6 +23,11 @@
                     {% csrf_token %}
                     {% bootstrap_form form %}
                     <input class="btn btn-warning" type="submit" value="Create Neighbourhood">
+                    {% if error %}
+                    <div class="alert alert-danger">
+                        {{ error }}
+                    </div>
+                    {% endif %}
                 </form>
             </div>
         </div>
