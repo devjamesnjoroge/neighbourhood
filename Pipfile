@@ -10,6 +10,8 @@ psycopg2 = "*"
 bootstrap4 = "*"
 django-bootstrap4 = "*"
 cloudinary = "*"
+whitenoise = "*"
+django-heroku = "*"
 
 [dev-packages]
 
