@@ -74,7 +74,7 @@ def join_hood(request, hood_id):
     user = User.objects.get(user=request.user)
     user.neighbourhood = hood
     user.save()
-    return redirect('/neighbourhoods/')
+    return redirect('/neighbourhoods/' + str(hood_id))
 
 @login_required(login_url='/auth/login/')
 def leave_hood(request, hood_id):
@@ -82,4 +82,20 @@ def leave_hood(request, hood_id):
     user = User.objects.get(user=request.user)
     user.neighbourhood = None
     user.save()
-    return redirect('/neighbourhoods/')
+    return redirect('/neighbourhoods/' + str(hood_id))
+
+@login_required(login_url='/auth/login/')
+def create_business(request):
+    if request.method == 'POST':
+        form = BusinessForm(request.POST, request.FILES)
+        if form.is_valid():
+            business = form.save(commit=False)
+            user = User.objects.get(user=request.user)
+            neighbourhood = user.neighbourhood
+            business.user = user
+            business.neighbourhood = neighbourhood
+            business.save()
+            return redirect('/neighbourhoods/')
+    else:
+        form = BusinessForm()
+    return render(request, 'create_business.html', {'form': form})

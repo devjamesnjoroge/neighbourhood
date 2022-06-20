@@ -66,6 +66,7 @@ class User(models.Model):
 class Business(models.Model):
         business_name = models.CharField(max_length=50)
         business_email = models.EmailField(max_length=100)
+        business_snap_pic = CloudinaryField('image', default='')
         user = models.ForeignKey(User, on_delete=models.CASCADE)
         neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
 
